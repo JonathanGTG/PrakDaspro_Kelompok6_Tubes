@@ -11,16 +11,14 @@ void speedG() {
     printf("Tekan ENTER SECEPATNYA setelah muncul perintah!\n");
     printf("Ada %d ronde.\n", ronde);
     printf("Tekan ENTER untuk mulai...\n");
-    flushInput();
     getchar();
 
     for (int i = 0; i < ronde; i++) {
-        int delay = rand() % 5 + 2; // 2 - 6 detik acak
+        int delay = rand() % 4 + 2; 
         printf("\nRonde %d...\nBersiap...\n", i + 1);
 
         time_t startWait = time(NULL);
         while (time(NULL) - startWait < delay) {
-            // menunggu secara acak
         }
 
         printf("\nTEKAN ENTER SEKARANG!!!\n");
