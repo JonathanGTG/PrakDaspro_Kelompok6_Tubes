@@ -62,3 +62,33 @@ void cariTugas()
         fclose(file);
     }
 }
+
+void statistikTugas() {
+    system("cls");
+
+    FILE *file = fopen(FILE_TUGAS, "r");
+    if (file == NULL) {
+        printf(RED "Maaf terjadi kesalahan, file tidak dapat dibuka!\n" RESET);
+        return;
+    }
+     Tugas tugas;
+    int total = 0, Done = 0, belum = 0;
+
+    while (fscanf(file, "%19s %19s %9s", tugas.matkul, tugas.deadline, tugas.status) != EOF) {
+        total++;
+
+        if (strcasecmp(tugas.status, "Done") == 0)
+            Done++;
+        else
+            belum++;
+    }
+
+    fclose(file);
+
+    printf(GREEN "===========================\n" RESET);
+    printf("    Statistik Tugas Kamu\n");
+    printf(GREEN "===========================\n" RESET);
+    printf(BLUE "Total Tugas : " RESET "%d\n", total);
+    printf(GREEN "Selesai     : " RESET "%d\n", Done);
+    printf(RED   "Belum       : " RESET "%d\n", belum);
+}
