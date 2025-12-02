@@ -11,15 +11,14 @@ int adaTugasDone() {
                   tugas.deadline,
                   tugas.status) != EOF)
     {
-        // check status DONE (bebas kapital)
         if (strcasecmp(tugas.status, "Done") == 0 ||
             strcasecmp(tugas.status, "Selesai") == 0)
         {
             fclose(file);
-            return 1; // Ada tugas done
+            return 1;
         }
     }
 
     fclose(file);
-    return 0; // Tidak ada yang done
+    return 0;
 }
