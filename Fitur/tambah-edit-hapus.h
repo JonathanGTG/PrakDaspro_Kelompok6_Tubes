@@ -30,7 +30,7 @@ void tambahTugas() {
     tugas.status[strcspn(tugas.status, "\n")] = '\0';
 
     
-    fprintf(file, "%s\n %s\n %s\n", tugas.matkul, tugas.deadline, tugas.status);
+    fprintf(file, "%s\n%s\n%s\n", tugas.matkul, tugas.deadline, tugas.status);
 
     fclose(file);
 
@@ -52,10 +52,16 @@ void editTugas() {
   Tugas tugas[100];
   int jumlah = 0;
   
-  while (fscanf(file, "%29s %14s %9s", tugas[jumlah].matkul, 
-    tugas[jumlah].deadline, tugas[jumlah].status) != EOF) {
-      jumlah++;
-  }
+  while (fgets(tugas[jumlah].matkul, sizeof(tugas[jumlah].matkul), file) != NULL &&
+       fgets(tugas[jumlah].deadline, sizeof(tugas[jumlah].deadline), file) != NULL &&
+       fgets(tugas[jumlah].status, sizeof(tugas[jumlah].status), file) != NULL) {
+
+    tugas[jumlah].matkul[strcspn(tugas[jumlah].matkul, "\n")] = '\0';
+    tugas[jumlah].deadline[strcspn(tugas[jumlah].deadline, "\n")] = '\0';
+    tugas[jumlah].status[strcspn(tugas[jumlah].status, "\n")] = '\0';
+
+    jumlah++;
+    }
   fclose(file);
 
   printf(RED"|========================|\n"RESET);
@@ -78,9 +84,18 @@ void editTugas() {
 
   pilih--;
   
-   printf("Masukkan Matkul baru: "); scanf("%29s", tugas[pilih].matkul);
-   printf("Masukkan Deadline baru: "); scanf("%14s", tugas[pilih].deadline);
-   printf("Masukkan Status baru: "); scanf("%9s", tugas[pilih].status);
+   flushInput();
+    printf("Masukkan Matkul baru: ");
+    fgets(tugas[pilih].matkul, sizeof(tugas[pilih].matkul), stdin);
+    tugas[pilih].matkul[strcspn(tugas[pilih].matkul, "\n")] = '\0';
+
+    printf("Masukkan Deadline baru: ");
+    fgets(tugas[pilih].deadline, sizeof(tugas[pilih].deadline), stdin);
+    tugas[pilih].deadline[strcspn(tugas[pilih].deadline, "\n")] = '\0';
+
+    printf("Masukkan Status baru (Belum/Done): ");
+    fgets(tugas[pilih].status, sizeof(tugas[pilih].status), stdin);
+    tugas[pilih].status[strcspn(tugas[pilih].status, "\n")] = '\0';
 
   file = fopen(FILE_TUGAS, "w");
   if (!file) {
@@ -89,8 +104,10 @@ void editTugas() {
   }
 
   for (int i = 0; i < jumlah; i++) {
-      fprintf(file, "%s %s %s\n",
-                tugas[i].matkul, tugas[i].deadline, tugas[i].status);
+      fprintf(file, "%s\n%s\n%s\n",
+                tugas[i].matkul, 
+                tugas[i].deadline, 
+                tugas[i].status);
     }
 
   fclose(file);
@@ -111,11 +128,16 @@ void hapusTugas() {
     Tugas tugas[100];
     int jumlah = 0;
 
-    while (fscanf(file,"%29s %14s %9s",
-                  tugas[jumlah].matkul,
-                  tugas[jumlah].deadline,
-                  tugas[jumlah].status) != EOF)
-        jumlah++;
+   while (fgets(tugas[jumlah].matkul, sizeof(tugas[jumlah].matkul), file) != NULL &&
+       fgets(tugas[jumlah].deadline, sizeof(tugas[jumlah].deadline), file) != NULL &&
+       fgets(tugas[jumlah].status, sizeof(tugas[jumlah].status), file) != NULL) {
+
+    tugas[jumlah].matkul[strcspn(tugas[jumlah].matkul, "\n")] = '\0';
+    tugas[jumlah].deadline[strcspn(tugas[jumlah].deadline, "\n")] = '\0';
+    tugas[jumlah].status[strcspn(tugas[jumlah].status, "\n")] = '\0';
+
+    jumlah++;
+    }
 
     fclose(file);
 
@@ -143,7 +165,7 @@ void hapusTugas() {
 
     for (int i = 0; i < jumlah; i++) {
         if (i != pilih) {
-            fprintf(file,"%s %s %s\n",
+            fprintf(file,"%s\n%s\n%s\n",
                     tugas[i].matkul,
                     tugas[i].deadline,
                     tugas[i].status);
@@ -153,4 +175,6 @@ void hapusTugas() {
     fclose(file);
 
     printf(GREEN "\nTugas berhasil dihapus!\n" RESET);
+    system("pause");
+    system("cls");
 }

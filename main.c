@@ -20,8 +20,7 @@ void daftarfitur() {
 }
 
 int main() {
-    int pilih;
-
+    int pilih,input_valid;
     system("cls");
     printf(BLUE "=========================================\n" RESET);
     printf(BLUE "|     WELCOME TO PROGRAM TO DO LIST     |\n" RESET);
@@ -29,8 +28,19 @@ int main() {
 
     do {
         daftarfitur();
-        printf("Pilih Fitur yang ingin kamu gunakan : ");
-        scanf("%d", &pilih);
+        printf("Pilih Fitur yang ingin kamu gunakan [1/2/3/4/5/6/7/8] : ");
+
+        input_valid = scanf("%d", &pilih);
+
+        if (!input_valid) {
+        printf(RED "Input harus angka!\n" RESET);
+
+        while (getchar() != '\n');
+
+        system("pause");
+        system("cls");
+        continue;
+        }
 
         switch (pilih) {
             case 1: tambahTugas(); 
@@ -58,7 +68,6 @@ int main() {
         }
         printf("\n");
         system("pause");
+        system("cls");
     } while (pilih != 8);
-
-    return 0;
 }
