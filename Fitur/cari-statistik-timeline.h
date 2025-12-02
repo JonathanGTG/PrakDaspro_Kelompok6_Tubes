@@ -43,14 +43,24 @@ void cariTugas()
         strcpy(pencarianLower, pencarian);
         toLowerCase(pencarianLower);
         
-        while(fscanf(file, "%19s %19s %5s", tugas.matkul, tugas.deadline, tugas.status) != EOF){
-            char matkulLower[20];
+       while(fgets(tugas.matkul, sizeof(tugas.matkul), file) != NULL &&
+              fgets(tugas.deadline, sizeof(tugas.deadline), file) != NULL &&
+              fgets(tugas.status, sizeof(tugas.status), file) != NULL){
+            
+            // Hapus newline dari setiap field
+            tugas.matkul[strcspn(tugas.matkul, "\n")] = '\0';
+            tugas.deadline[strcspn(tugas.deadline, "\n")] = '\0';
+            tugas.status[strcspn(tugas.status, "\n")] = '\0';
+            
+            // Convert matkul ke lowercase untuk case-insensitive search
+            char matkulLower[50];
             strcpy(matkulLower, tugas.matkul);
             toLowerCase(matkulLower);
             
             // Jika pencarian kosong atau ditemukan kecocokan
             if(strlen(pencarian) == 0 || strstr(matkulLower, pencarianLower) != NULL){
-                printf("%s - Deadline: %s - Status: %s\n", tugas.matkul, tugas.deadline, tugas.status);
+                printf("%s - Deadline: %s - Status: %s\n", 
+                       tugas.matkul, tugas.deadline, tugas.status);
                 found = 1;
             }
         }
@@ -74,7 +84,9 @@ void statistikTugas() {
      Tugas tugas;
     int total = 0, Done = 0, belum = 0;
 
-    while (fscanf(file, "%19s %19s %9s", tugas.matkul, tugas.deadline, tugas.status) != EOF) {
+    while (fgets(tugas.matkul, sizeof(tugas.matkul), file) != NULL &&
+           fgets(tugas.deadline, sizeof(tugas.deadline), file) != NULL &&
+           fgets(tugas.status, sizeof(tugas.status), file) != NULL){
         total++;
 
         if (strcasecmp(tugas.status, "Done") == 0)
@@ -110,10 +122,18 @@ void timeline(){
     printf("      Timeline Tugas\n");
     printf(GREEN"===========================\n"RESET);
 
-    while(fscanf(file, "%19s %19s %5s", tugas.matkul, tugas.deadline, tugas.status) != EOF){
-        printf("%s - Deadline: %s - Status: %s\n", tugas.matkul, tugas.deadline, tugas.status);
+    while(fgets(tugas.matkul, sizeof(tugas.matkul), file) != NULL &&
+          fgets(tugas.deadline, sizeof(tugas.deadline), file) != NULL &&
+          fgets(tugas.status, sizeof(tugas.status), file) != NULL){
+        
+        // Hapus newline dari setiap field
+        tugas.matkul[strcspn(tugas.matkul, "\n")] = '\0';
+        tugas.deadline[strcspn(tugas.deadline, "\n")] = '\0';
+        tugas.status[strcspn(tugas.status, "\n")] = '\0';
+        
+        printf("%s - Deadline: %s - Status: %s\n", 
+               tugas.matkul, tugas.deadline, tugas.status);
     }
-
     }
 
 

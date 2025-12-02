@@ -18,13 +18,16 @@ void tambahTugas() {
 
     flushInput();
     printf("Masukkan Nama Mata Kuliah : ");
-    scanf("%19s", tugas.matkul);
+    fgets(tugas.matkul, sizeof(tugas.matkul), stdin);
+    tugas.matkul[strcspn(tugas.matkul, "\n")] = '\0';
 
     printf("Masukkan Deadline (dd-mm-yyyy) : ");
-    scanf("%19s", tugas.deadline);
+    fgets(tugas.deadline, sizeof(tugas.deadline), stdin);
+    tugas.deadline[strcspn(tugas.deadline, "\n")] = '\0';
 
     printf("Masukkan Status (Belum/Done) : ");
-    scanf("%5s", tugas.status);
+    fgets(tugas.status, sizeof(tugas.status), stdin);
+    tugas.status[strcspn(tugas.status, "\n")] = '\0';
 
     
     fprintf(file, "%s\n %s\n %s\n", tugas.matkul, tugas.deadline, tugas.status);
