@@ -87,6 +87,10 @@ void statistikTugas() {
     while (fgets(tugas.matkul, sizeof(tugas.matkul), file) != NULL &&
            fgets(tugas.deadline, sizeof(tugas.deadline), file) != NULL &&
            fgets(tugas.status, sizeof(tugas.status), file) != NULL){
+
+        tugas.matkul[strcspn(tugas.matkul, "\n")] = '\0';
+        tugas.deadline[strcspn(tugas.deadline, "\n")] = '\0';
+        tugas.status[strcspn(tugas.status, "\n")] = '\0';
         total++;
 
         if (strcasecmp(tugas.status, "Done") == 0)
@@ -131,8 +135,10 @@ void timeline(){
         tugas.deadline[strcspn(tugas.deadline, "\n")] = '\0';
         tugas.status[strcspn(tugas.status, "\n")] = '\0';
         
-        printf("%s - Deadline: %s - Status: %s\n", 
-               tugas.matkul, tugas.deadline, tugas.status);
+        printf("Mata Kuliah : %s\n", tugas.matkul);
+        printf("Deadline    : %s\n", tugas.deadline);
+        printf("Status      : %s\n", tugas.status);
+        printf("------------------------------------\n");
     }
     }
 

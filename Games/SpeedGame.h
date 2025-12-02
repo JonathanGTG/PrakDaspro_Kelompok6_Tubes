@@ -14,7 +14,7 @@ void speedG() {
     getchar();
 
     for (int i = 0; i < ronde; i++) {
-        int delay = rand() % 4 + 2; 
+        int delay = rand() % 5 + 1; 
         printf("\nRonde %d...\nBersiap...\n", i + 1);
 
         time_t startWait = time(NULL);

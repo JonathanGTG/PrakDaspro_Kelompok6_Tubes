@@ -11,8 +11,7 @@ int adaTugasDone() {
                   tugas.deadline,
                   tugas.status) != EOF)
     {
-        if (strcasecmp(tugas.status, "Done") == 0 ||
-            strcasecmp(tugas.status, "Selesai") == 0)
+        if (strcasecmp(tugas.status, "Done") == 0)
         {
             fclose(file);
             return 1;
