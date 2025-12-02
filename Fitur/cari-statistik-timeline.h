@@ -92,3 +92,31 @@ void statistikTugas() {
     printf(GREEN "Selesai     : " RESET "%d\n", Done);
     printf(RED   "Belum       : " RESET "%d\n", belum);
 }
+
+void timeline(){
+
+    system("cls");
+
+    Tugas tugas;
+    
+    FILE *file = fopen(FILE_TUGAS, "r");
+    if (file == NULL) {
+        printf("Maaf Terjadi Kesalahan Please Reload\n");
+        return;
+    } 
+    else {
+
+    printf(GREEN"===========================\n"RESET);
+    printf("      Timeline Tugas\n");
+    printf(GREEN"===========================\n"RESET);
+
+    while(fscanf(file, "%19s %19s %5s", tugas.matkul, tugas.deadline, tugas.status) != EOF){
+        printf("%s - Deadline: %s - Status: %s\n", tugas.matkul, tugas.deadline, tugas.status);
+    }
+
+    }
+
+
+     fclose(file);
+
+}
